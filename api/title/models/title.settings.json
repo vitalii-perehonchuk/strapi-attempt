@@ -1,0 +1,92 @@
+{
+  "kind": "collectionType",
+  "collectionName": "titles",
+  "info": {
+    "name": "title"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "explicit": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "integer",
+      "max": 100,
+      "min": 0,
+      "required": true
+    },
+    "kind": {
+      "type": "enumeration",
+      "enum": [
+        "feature",
+        "tv_series",
+        "tv_episode",
+        "video_game",
+        "creative_work"
+      ]
+    },
+    "severe": {
+      "type": "boolean"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "description": {
+      "type": "text"
+    },
+    "imdb_id": {
+      "type": "biginteger"
+    },
+    "released_at": {
+      "type": "date",
+      "required": true
+    },
+    "votes_num": {
+      "type": "biginteger",
+      "required": true,
+      "min": "0"
+    },
+    "countries": {
+      "collection": "country",
+      "via": "titles",
+      "dominant": true
+    },
+    "languages": {
+      "collection": "language",
+      "via": "titles",
+      "dominant": true
+    },
+    "series": {
+      "model": "title",
+      "via": "episodes"
+    },
+    "episodes": {
+      "collection": "title",
+      "via": "series"
+    },
+    "season": {
+      "type": "integer",
+      "min": 0
+    },
+    "episode": {
+      "type": "integer",
+      "min": 0
+    },
+    "genres": {
+      "via": "titles",
+      "collection": "genre"
+    }
+  }
+}
